@@ -1,11 +1,10 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 def get_list_of_genres(all_games_df):
     return list(set(list(all_games_df['genres'].dropna())))
 
-def scenario_2(all_games_df):
+def get_scenario_2_data(all_games_df):
     non_game_genres = ['Audio Production', 'Photo Editing', 'Video Production', 'Web Publishing', 'Animation & Modeling', 'Game Development', 'Utilities', 'Design & Illustration']
     
     steam_reviews_df = all_games_df[['review_score', 'genres']].copy()
@@ -26,9 +25,9 @@ def scenario_2(all_games_df):
     metacritic_reviews['metacritic'].replace(' ', np.nan, inplace=True)
     metacritic_reviews.dropna(inplace=True)
     metacritic_reviews.astype({'metacritic': np.int64}, inplace=True)
-    metacritic_reviews = metacritic_reviews.groupby(['genres']).mean().sort_values(by=['metacritic'])
-    metacritic_reviews = metacritic_reviews.drop(non_game_genres)
-    metacritic_reviews.to_csv('metacritic_reviews.csv')
+    mean_metacritic_scores = metacritic_reviews.groupby(['genres']).mean().sort_values(by=['metacritic'])
+    mean_metacritic_scores = mean_metacritic_scores.drop(non_game_genres)
+    mean_metacritic_scores.to_csv('mean_metacritic_scores.csv')
     
-    return mean_steam_scores, mean_rawg_scores, metacritic_reviews
+    return mean_steam_scores, mean_rawg_scores, mean_metacritic_scores
 
