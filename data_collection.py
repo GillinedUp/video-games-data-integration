@@ -82,11 +82,18 @@ def collect_steam_reviews_data(steam_games_df):
     steam_reviews_df.to_csv('steam_reviews.csv')
 
 
-def merge_games_and_reviews(steam_games_df, steam_reviews_df):
-    steam_games_df_with_reviews = steam_games_df.loc[steam_reviews_df.index]
-    steam_games_and_reviews = pd.merge(steam_reviews_df, steam_games_df_with_reviews, how='inner', on=steam_games_df_with_reviews.index)
-    steam_games_and_reviews.set_index('key_0', inplace=True)
-    steam_games_and_reviews.to_csv('steam_games_and_reviews.csv')
+def merge_steam_games_and_reviews(steam_games_df, steam_reviews_df):
+    steam_games_with_reviews_df = steam_games_df.loc[steam_reviews_df.index]
+    steam_games_and_reviews_df = pd.merge(steam_reviews_df, steam_games_with_reviews_df, how='inner', on=steam_games_with_reviews_df.index)
+    steam_games_and_reviews_df.set_index('key_0', inplace=True)
+    steam_games_and_reviews_df.to_csv('steam_games_and_reviews.csv')
+    return steam_games_and_reviews_df
+
+def merge_steam_and_rawg_games(steam_games_and_reviews_df, rawg_games_df):
+    all_games_df = steam_games_and_reviews_df.join(rawg_games_df, how='inner', lsuffix='_steam', rsuffix='_rawg')
+    all_games_df.index.name = 'id'
+    all_games_df.to_csv('all_games.csv')
+    return all_games_df
 
 steam_store_url = 'https://store.steampowered.com/api/appdetails'
 reviews_url = 'http://store.steampowered.com/appreviews/'
