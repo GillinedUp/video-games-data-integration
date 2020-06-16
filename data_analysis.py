@@ -12,7 +12,6 @@ from sklearn.metrics import mean_absolute_error
 
 from data_visualization import *
 
-
 def filter_genres(df):
     genres_to_remove = ['Audio Production', 'Photo Editing', 'Video Production', 'Web Publishing',
                         'Animation & Modeling', 'Game Development', 'Utilities', 'Design & Illustration']
@@ -230,21 +229,7 @@ def years_analysis(df, portal):
     x.reverse()
     z.reverse()
 
-    sns.pointplot(y=score_from, x='year',
-                  data=games_by_year, join=False)
-    plt.title("Średnia ocen w kolejnych latach")
-    plt.show()
-    sns.pointplot(y=score_from, x='year',
-                  data=games_by_year, join=False)
-    plt.title("Średnia ocen w kolejnych latach")
-    plt.ylim(0, 10)
-    plt.show()
-
-    plt.bar(y, z)
-    plt.title("Ilośc gier wydanych w kolejnych latach")
-    plt.xlabel("rok")
-    plt.ylabel("ilość gier")
-    plt.show()
+    plot_game_year_analysis(score_from, y, z, games_by_year)
 
 
 def scenario5(df):
@@ -252,9 +237,6 @@ def scenario5(df):
     years_analysis(df, 'metacritic')
     years_analysis(df, 'Steam')
 
-
-df = pd.read_csv('all_games.csv')
-df = filter_genres(df)
 
 
 def get_list_of_genres(all_games_df):
@@ -325,3 +307,5 @@ def get_simple_prediction_mean_absolute_error(y_test):
     y_pred_mean.fill(y_test.mean())
     return mean_absolute_error(y_test, y_pred_mean)
 
+df = pd.read_csv('all_games.csv')
+df = filter_genres(df)

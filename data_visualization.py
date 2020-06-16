@@ -40,8 +40,8 @@ def plot_scaled_avg_game_score_by_years(score_from, games_by_year):
     plt.show()
 
 
-def plot_his_game_amount(years, games_by_year):
-    plt.bar(years, games_by_year)
+def plot_his_game_amount(years, game_amount):
+    plt.bar(years, game_amount)
     plt.title("Ilośc gier wydanych w kolejnych latach")
     plt.xlabel("rok")
     plt.ylabel("ilość gier")
@@ -51,7 +51,7 @@ def plot_his_game_amount(years, games_by_year):
 def plot_game_year_analysis(score_from, years, game_amount, games_by_year):
     plot_avg_game_score_by_years(score_from, games_by_year)
     plot_scaled_avg_game_score_by_years(score_from, games_by_year)
-    plot_his_game_amount(years, games_by_year)
+    plot_his_game_amount(years, game_amount)
 
 
 
