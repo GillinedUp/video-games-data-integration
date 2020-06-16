@@ -19,7 +19,7 @@ def if_field_exists(field, game_data):
     return field
 
 
-def get_games_info(results, outfile="games.csv", steam_file="steamFile"):
+def get_RAWG_data(results, outfile="games.csv", steam_file="steamFile"):
     is_next = True
     with open(outfile, 'a+', newline='', encoding="utf-8") as file:
         writer = csv.writer(file)
